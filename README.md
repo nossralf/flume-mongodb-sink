@@ -2,6 +2,8 @@
 # flume-mongodb-sink
 An Apache Flume sink that writes JSON to a MongoDB collection.
 
+flume-mongodb-sink assumes the body of an event contains a valid UTF-8 encoded JSON object.
+
 # Flume configuration properties
 
 Here is an example excerpt from a Flume configuration file with a MongoDB sink configured for a Flume agent. Events will be written to the ``json`` collection in the ``flume`` database.
