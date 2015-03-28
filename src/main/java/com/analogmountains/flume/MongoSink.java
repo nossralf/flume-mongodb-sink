@@ -59,6 +59,7 @@ public class MongoSink extends AbstractSink implements Configurable {
 
   private SinkCounter sinkCounter;
 
+  @Override
   public Status process() throws EventDeliveryException {
     Status status = Status.READY;
 
@@ -156,6 +157,7 @@ public class MongoSink extends AbstractSink implements Configurable {
     logger.info("MongoDB sink stopped");
   }
 
+  @Override
   public void configure(Context context) {
     seeds = getSeeds(context.getString(HOSTNAMES));
     credential = getCredential(context);
