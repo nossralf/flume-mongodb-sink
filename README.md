@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/nossralf/flume-mongodb-sink.svg)](https://travis-ci.org/nossralf/flume-mongodb-sink)
 # flume-mongodb-sink
 An Apache Flume sink that writes JSON to a MongoDB collection.
 
