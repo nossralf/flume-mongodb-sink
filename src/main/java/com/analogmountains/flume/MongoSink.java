@@ -35,13 +35,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Throwables;
-import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.util.JSON;
 
 public class MongoSink extends AbstractSink implements Configurable {
 
@@ -79,8 +77,7 @@ public class MongoSink extends AbstractSink implements Configurable {
         }
 
         String jsonEvent = new String(event.getBody(), StandardCharsets.UTF_8);
-        BasicDBObject dbObject = (BasicDBObject) JSON.parse(jsonEvent);
-        documents.add(new Document(dbObject));
+        documents.add(Document.parse(jsonEvent));
       }
 
       if (count <= 0) {
