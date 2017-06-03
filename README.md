@@ -23,7 +23,7 @@ agent.sinks.mongo.password = admin
 
 Hostnames is a comma-separated list of MongoDB server hostnames on the form ``hostname:port``. If the port number is omitted, the default port 27017 will be used.
 
-###Examples
+## Examples
 
 Three servers, the default port number 27017 will be used:
 ```
