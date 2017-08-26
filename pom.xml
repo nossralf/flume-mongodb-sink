@@ -4,7 +4,7 @@
 
   <groupId>com.analogmountains.flume</groupId>
   <artifactId>flume-mongodb-sink</artifactId>
-  <version>0.1</version>
+  <version>0.2</version>
   <packaging>jar</packaging>
 
   <name>flume-mongodb-sink</name>
@@ -12,39 +12,41 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <flume.version>1.7.0</flume.version>
+    <mongodb.version>3.5.0</mongodb.version>
   </properties>
 
   <dependencies>
     <dependency>
-    	<groupId>org.testng</groupId>
-    	<artifactId>testng</artifactId>
-    	<version>6.8.21</version>
-    	<scope>test</scope>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.11</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
-    	<groupId>org.apache.flume</groupId>
-    	<artifactId>flume-ng-core</artifactId>
-    	<version>1.5.2</version>
+      <groupId>org.apache.flume</groupId>
+      <artifactId>flume-ng-core</artifactId>
+      <version>${flume.version}</version>
     </dependency>
     <dependency>
-    	<groupId>org.apache.flume</groupId>
-    	<artifactId>flume-ng-sdk</artifactId>
-    	<version>1.5.2</version>
+      <groupId>org.apache.flume</groupId>
+      <artifactId>flume-ng-sdk</artifactId>
+      <version>${flume.version}</version>
     </dependency>
     <dependency>
-    	<groupId>org.apache.flume</groupId>
-    	<artifactId>flume-ng-configuration</artifactId>
-    	<version>1.5.2</version>
+      <groupId>org.apache.flume</groupId>
+      <artifactId>flume-ng-configuration</artifactId>
+      <version>${flume.version}</version>
     </dependency>
     <dependency>
-    	<groupId>org.slf4j</groupId>
-    	<artifactId>slf4j-api</artifactId>
-    	<version>1.7.10</version>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.25</version>
     </dependency>
     <dependency>
-    	<groupId>org.mongodb</groupId>
-    	<artifactId>mongodb-driver</artifactId>
-    	<version>3.0.0-rc0</version>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver</artifactId>
+      <version>${mongodb.version}</version>
     </dependency>
   </dependencies>
 </project>
