@@ -12,7 +12,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <flume.version>1.7.0</flume.version>
+    <flume.version>1.8.0</flume.version>
     <mongodb.version>3.8.2</mongodb.version>
   </properties>
 
