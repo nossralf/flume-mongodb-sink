@@ -13,7 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <flume.version>1.9.0</flume.version>
-    <mongodb.version>3.10.1</mongodb.version>
+    <mongodb.version>3.10.2</mongodb.version>
   </properties>
 
   <dependencies>
