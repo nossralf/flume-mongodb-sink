@@ -13,7 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <flume.version>1.9.0</flume.version>
-    <mongodb.version>3.11.0</mongodb.version>
+    <mongodb.version>3.11.1</mongodb.version>
     <maven.compiler.source>1.6</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
   </properties>
