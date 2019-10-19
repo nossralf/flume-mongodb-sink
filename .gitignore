@@ -78,3 +78,5 @@ target/
 
 .gradle
 build/
+
+.idea/
