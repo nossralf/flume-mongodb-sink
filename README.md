@@ -11,7 +11,7 @@ Here is an example excerpt from a Flume configuration file with a MongoDB sink c
 ```
 agent.sinks = mongo
 
-agent.sinks.mongo.type = com.analogmountains.flume.MongoSink
+agent.sinks.mongo.type = art.iculate.flume.MongoSink
 agent.sinks.mongo.hostNames = localhost
 agent.sinks.mongo.database = flume
 agent.sinks.mongo.collection = json

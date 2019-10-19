@@ -5,7 +5,7 @@
  * This software may be modified and distributed under the terms
  * of the BSD license.  See the LICENSE file for details.
  */
-package com.analogmountains.flume;
+package art.iculate.flume;
 
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
@@ -32,13 +32,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.analogmountains.flume.MongoSinkConstants.BATCH_SIZE;
-import static com.analogmountains.flume.MongoSinkConstants.COLLECTION;
-import static com.analogmountains.flume.MongoSinkConstants.DATABASE;
-import static com.analogmountains.flume.MongoSinkConstants.DEFAULT_BATCH_SIZE;
-import static com.analogmountains.flume.MongoSinkConstants.HOSTNAMES;
-import static com.analogmountains.flume.MongoSinkConstants.PASSWORD;
-import static com.analogmountains.flume.MongoSinkConstants.USER;
+import static art.iculate.flume.MongoSinkConstants.BATCH_SIZE;
+import static art.iculate.flume.MongoSinkConstants.COLLECTION;
+import static art.iculate.flume.MongoSinkConstants.DATABASE;
+import static art.iculate.flume.MongoSinkConstants.DEFAULT_BATCH_SIZE;
+import static art.iculate.flume.MongoSinkConstants.HOSTNAMES;
+import static art.iculate.flume.MongoSinkConstants.PASSWORD;
+import static art.iculate.flume.MongoSinkConstants.USER;
 
 public class MongoSink extends AbstractSink implements Configurable {
 
