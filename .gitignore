@@ -20,7 +20,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-
 ### Linux ###
 *~
 
@@ -37,7 +36,7 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
 
 # Thumbnails
 ._*
@@ -57,7 +56,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-
 ### Java ###
 *.class
 
@@ -75,3 +73,8 @@ hs_err_pid*
 ### Maven ###
 
 target/
+
+### Gradle ###
+
+.gradle
+build/
