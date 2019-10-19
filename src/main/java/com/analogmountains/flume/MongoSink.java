@@ -7,7 +7,6 @@
  */
 package com.analogmountains.flume;
 
-import com.google.common.base.Throwables;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -106,8 +105,8 @@ public class MongoSink extends AbstractSink implements Configurable {
       }
 
       logger.error("Failed to commit transaction. Transaction rolled back.", t);
-      if (t instanceof Error || t instanceof RuntimeException) {
-        Throwables.propagate(t);
+      if (t instanceof Error) {
+        throw t;
       } else {
         throw new EventDeliveryException(
             "Failed to commit transaction. Transaction rolled back.", t);
