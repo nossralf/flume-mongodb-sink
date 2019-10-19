@@ -109,7 +109,7 @@ public class MongoSink extends AbstractSink implements Configurable {
         throw t;
       } else {
         throw new EventDeliveryException(
-            "Failed to commit transaction. Transaction rolled back.", t);
+                "Failed to commit transaction. Transaction rolled back.", t);
       }
     } finally {
       if (transaction != null) {
@@ -131,7 +131,6 @@ public class MongoSink extends AbstractSink implements Configurable {
                               builder.hosts(seeds))
                       .credential(credential)
                       .build());
-     // client = new MongoClient(seeds, Arrays.asList(credential));
       MongoDatabase database = client.getDatabase(databaseName);
       collection = database.getCollection(collectionName);
       sinkCounter.incrementConnectionCreatedCount();
@@ -194,7 +193,6 @@ public class MongoSink extends AbstractSink implements Configurable {
     String user = context.getString(USER);
     String database = context.getString(DATABASE);
     String password = context.getString(PASSWORD);
-    return MongoCredential.createCredential(user, database,
-        password.toCharArray());
+    return MongoCredential.createCredential(user, database, password.toCharArray());
   }
 }
