@@ -7,20 +7,14 @@
  */
 package com.analogmountains.flume;
 
-import static com.analogmountains.flume.MongoSinkConstants.BATCH_SIZE;
-import static com.analogmountains.flume.MongoSinkConstants.COLLECTION;
-import static com.analogmountains.flume.MongoSinkConstants.DATABASE;
-import static com.analogmountains.flume.MongoSinkConstants.DEFAULT_BATCH_SIZE;
-import static com.analogmountains.flume.MongoSinkConstants.HOSTNAMES;
-import static com.analogmountains.flume.MongoSinkConstants.PASSWORD;
-import static com.analogmountains.flume.MongoSinkConstants.USER;
-
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
+import com.google.common.base.Throwables;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import org.apache.commons.lang.StringUtils;
 import org.apache.flume.Channel;
 import org.apache.flume.Context;
@@ -34,12 +28,18 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Throwables;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import static com.analogmountains.flume.MongoSinkConstants.BATCH_SIZE;
+import static com.analogmountains.flume.MongoSinkConstants.COLLECTION;
+import static com.analogmountains.flume.MongoSinkConstants.DATABASE;
+import static com.analogmountains.flume.MongoSinkConstants.DEFAULT_BATCH_SIZE;
+import static com.analogmountains.flume.MongoSinkConstants.HOSTNAMES;
+import static com.analogmountains.flume.MongoSinkConstants.PASSWORD;
+import static com.analogmountains.flume.MongoSinkConstants.USER;
 
 public class MongoSink extends AbstractSink implements Configurable {
 
@@ -61,7 +61,7 @@ public class MongoSink extends AbstractSink implements Configurable {
   public Status process() throws EventDeliveryException {
     Status status = Status.READY;
 
-    List<Document> documents = new ArrayList<Document>(batchSize);
+    List<Document> documents = new ArrayList<>(batchSize);
 
     Channel channel = getChannel();
     Transaction transaction = channel.getTransaction();
@@ -126,7 +126,13 @@ public class MongoSink extends AbstractSink implements Configurable {
     logger.info("Starting MongoDB sink");
     sinkCounter.start();
     try {
-      client = new MongoClient(seeds, Arrays.asList(credential));
+      client = MongoClients.create(
+              MongoClientSettings.builder()
+                      .applyToClusterSettings(builder ->
+                              builder.hosts(seeds))
+                      .credential(credential)
+                      .build());
+     // client = new MongoClient(seeds, Arrays.asList(credential));
       MongoDatabase database = client.getDatabase(databaseName);
       collection = database.getCollection(collectionName);
       sinkCounter.incrementConnectionCreatedCount();
@@ -168,7 +174,7 @@ public class MongoSink extends AbstractSink implements Configurable {
   }
 
   private List<ServerAddress> getSeeds(String seedsString) {
-    List<ServerAddress> seeds = new LinkedList<ServerAddress>();
+    List<ServerAddress> seeds = new LinkedList<>();
     String[] seedStrings = StringUtils.deleteWhitespace(seedsString).split(",");
     for (String seed : seedStrings) {
       String[] hostAndPort = seed.split(":");
