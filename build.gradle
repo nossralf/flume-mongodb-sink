@@ -7,10 +7,13 @@ repositories {
 }
 
 dependencies {
-    api 'org.apache.flume:flume-ng-core:1.8.0'
+    api 'org.apache.flume:flume-ng-core:1.9.0'
 
-    implementation 'org.mongodb:mongodb-driver:3.8.2'
-    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'org.mongodb:mongodb-driver:3.11.1'
+    implementation 'org.slf4j:slf4j-api:1.7.28'
+
+    testImplementation 'junit:junit:4.12'
+    testCompile 'org.testcontainers:testcontainers:1.12.2'
 }
 
 group = 'com.analogmountains.flume'
