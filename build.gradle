@@ -13,6 +13,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:1.7.28'
 
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
     testCompile 'org.testcontainers:testcontainers:1.12.2'
 }
 
