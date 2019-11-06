@@ -2,3 +2,12 @@ language: java
 
 services:
   - docker
+
+addons:
+  sonarcloud:
+    organization: "nossralf"
+    token:
+      secure: "Z8kNjX4TwYBN6kkJweiO0Rn/Ebpp5TQHAKDxXsNfyihcuQix/sT9j/+6zXdYCpJmeksuKXhY1rLxSm0BOiJYmSL7G9uel78yqZuVxlOkrsyVw6mbnOES9kf9VEbGPUrjQhoYsSOacZJzA4doRI/WdEuYsNpmjh1rRZ7Jqa1Lf94="
+
+script:
+  - ./gradlew sonarqube
