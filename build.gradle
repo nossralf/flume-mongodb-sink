@@ -19,7 +19,7 @@ dependencies {
     testCompile 'org.testcontainers:testcontainers:1.12.3'
 }
 
-group = 'com.analogmountains.flume'
+group = 'art.iculate.flume'
 version = '0.2'
 description = 'flume-mongodb-sink'
 sourceCompatibility = '1.8'
