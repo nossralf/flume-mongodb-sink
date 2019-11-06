@@ -18,7 +18,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 
-public class TestMongoSink {
+public class MongoSinkSystemTest {
 
     private final String MONGO_COLLECTION = "json";
     private final String MONGO_DATABASE = "admin";

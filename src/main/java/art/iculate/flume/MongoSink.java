@@ -46,7 +46,7 @@ public class MongoSink extends AbstractSink implements Configurable {
 
   private MongoClient client;
   private MongoCollection<Document> collection;
-  private List<ServerAddress> seeds;
+  private List<ServerAddress> mongoHosts;
   private MongoCredential credential;
 
   private String databaseName;
@@ -99,7 +99,7 @@ public class MongoSink extends AbstractSink implements Configurable {
 
     } catch (Exception e) {
       try {
-        transaction.rollback(); 
+        transaction.rollback();
       } catch (Exception rollbackException) {
         logger.error("Exception during transaction rollback.", rollbackException);
       }
@@ -121,7 +121,7 @@ public class MongoSink extends AbstractSink implements Configurable {
       client = MongoClients.create(
               MongoClientSettings.builder()
                       .applyToClusterSettings(builder ->
-                              builder.hosts(seeds))
+                              builder.hosts(mongoHosts))
                       .credential(credential)
                       .build());
       MongoDatabase database = client.getDatabase(databaseName);
@@ -153,7 +153,7 @@ public class MongoSink extends AbstractSink implements Configurable {
 
   @Override
   public void configure(Context context) {
-    seeds = getSeeds(context.getString(HOSTNAMES));
+    mongoHosts = parseHostnames(context.getString(HOSTNAMES));
     credential = getCredential(context);
     databaseName = context.getString(DATABASE);
     collectionName = context.getString(COLLECTION);
@@ -164,9 +164,9 @@ public class MongoSink extends AbstractSink implements Configurable {
     }
   }
 
-  private List<ServerAddress> getSeeds(String seedsString) {
+  public static List<ServerAddress> parseHostnames(String hostNames) {
     List<ServerAddress> serverAddresses = new LinkedList<>();
-    String[] seedStrings = StringUtils.deleteWhitespace(seedsString).split(",");
+    String[] seedStrings = StringUtils.deleteWhitespace(hostNames).split(",");
     for (String seed : seedStrings) {
       String[] hostAndPort = seed.split(":");
       String host = hostAndPort[0];
