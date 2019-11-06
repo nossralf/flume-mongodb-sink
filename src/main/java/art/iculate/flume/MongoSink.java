@@ -97,24 +97,17 @@ public class MongoSink extends AbstractSink implements Configurable {
       transaction.commit();
       sinkCounter.addToEventDrainSuccessCount(count);
 
-    } catch (Throwable t) {
+    } catch (Exception e) {
       try {
-        transaction.rollback();
-      } catch (Exception e) {
-        logger.error("Exception during transaction rollback.", e);
+        transaction.rollback(); 
+      } catch (Exception rollbackException) {
+        logger.error("Exception during transaction rollback.", rollbackException);
       }
 
-      logger.error("Failed to commit transaction. Transaction rolled back.", t);
-      if (t instanceof Error) {
-        throw t;
-      } else {
-        throw new EventDeliveryException(
-                "Failed to commit transaction. Transaction rolled back.", t);
-      }
+      throw new EventDeliveryException(
+                "Failed to commit transaction. Transaction rolled back.", e);
     } finally {
-      if (transaction != null) {
-        transaction.close();
-      }
+      transaction.close();
     }
 
     return status;
@@ -172,7 +165,7 @@ public class MongoSink extends AbstractSink implements Configurable {
   }
 
   private List<ServerAddress> getSeeds(String seedsString) {
-    List<ServerAddress> seeds = new LinkedList<>();
+    List<ServerAddress> serverAddresses = new LinkedList<>();
     String[] seedStrings = StringUtils.deleteWhitespace(seedsString).split(",");
     for (String seed : seedStrings) {
       String[] hostAndPort = seed.split(":");
@@ -183,10 +176,10 @@ public class MongoSink extends AbstractSink implements Configurable {
       } else {
         port = 27017;
       }
-      seeds.add(new ServerAddress(host, port));
+      serverAddresses.add(new ServerAddress(host, port));
     }
 
-    return seeds;
+    return serverAddresses;
   }
 
   private MongoCredential getCredential(Context context) {

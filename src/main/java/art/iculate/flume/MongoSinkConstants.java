@@ -7,7 +7,9 @@
  */
 package art.iculate.flume;
 
-class MongoSinkConstants {
+final class MongoSinkConstants {
+
+  private MongoSinkConstants() {}
 
   /**
    * Comma-separated list of hostname:port. If the port is not present the
