@@ -17,7 +17,7 @@ dependencies {
 
     implementation 'org.apache.commons:commons-lang3:3.9'
     implementation 'org.mongodb:mongodb-driver:3.12.0'
-    implementation 'org.slf4j:slf4j-api:1.7.29'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.hamcrest:hamcrest:2.2'
