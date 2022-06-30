@@ -21,7 +21,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.hamcrest:hamcrest:2.2'
-    testCompile 'org.testcontainers:testcontainers:1.17.2'
+    testCompile 'org.testcontainers:testcontainers:1.17.3'
 }
 
 group = 'art.iculate.flume'
