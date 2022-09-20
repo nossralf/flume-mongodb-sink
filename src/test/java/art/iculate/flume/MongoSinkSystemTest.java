@@ -52,7 +52,7 @@ public class MongoSinkSystemTest {
         sink.process();
         sink.stop();
 
-        List<String> mongoJsonDocuments = MongoUtil.getJsonDocuments(mongo.getContainerIpAddress(), mongo.getFirstMappedPort(),
+        List<String> mongoJsonDocuments = MongoUtil.getJsonDocuments(mongo.getHost(), mongo.getFirstMappedPort(),
                 MONGO_USERNAME, MONGO_PASSWORD, MONGO_DATABASE, MONGO_COLLECTION);
         assertThat(mongoJsonDocuments, hasItem(jsonDocument));
     }
@@ -74,7 +74,7 @@ public class MongoSinkSystemTest {
     }
 
     private Context createContext(GenericContainer mongoContainer) {
-        String hostName = String.format("%s:%s", mongoContainer.getContainerIpAddress(),
+        String hostName = String.format("%s:%s", mongoContainer.getHost(),
                 mongoContainer.getFirstMappedPort());
 
         Context context = new Context();
