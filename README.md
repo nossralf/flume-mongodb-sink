@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/nossralf/flume-mongodb-sink.svg)](https://travis-ci.org/nossralf/flume-mongodb-sink)
+![Build Status](https://github.com/nossralf/flume-mongodb-sink/actions/workflows/ci.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=nossralf_flume-mongodb-sink&metric=alert_status)](https://sonarcloud.io/dashboard?id=nossralf_flume-mongodb-sink)
 # flume-mongodb-sink
 An Apache Flume sink that writes JSON to a MongoDB collection.
