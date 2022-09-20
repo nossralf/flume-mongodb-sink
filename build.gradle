@@ -30,7 +30,7 @@ description = 'flume-mongodb-sink'
 sourceCompatibility = '1.8'
 
 jacoco {
-    toolVersion = '0.8.5'
+    toolVersion = '0.8.8'
 }
 
 jacocoTestReport {
