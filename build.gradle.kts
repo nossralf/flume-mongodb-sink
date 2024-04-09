@@ -56,7 +56,6 @@ sonar {
   }
 }
 
-tasks.check {
-    finalizedBy(tasks.jacocoTestReport)
-    finalizedBy(tasks.sonar)
+tasks.sonar {
+    dependsOn(tasks.jacocoTestReport)
 }
