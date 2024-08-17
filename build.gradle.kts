@@ -20,7 +20,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:2.0.16")
 
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.hamcrest:hamcrest:2.2")
+    testImplementation("org.hamcrest:hamcrest:3.0")
     testImplementation("org.testcontainers:testcontainers:1.19.8")
 }
 
