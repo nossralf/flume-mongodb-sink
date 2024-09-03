@@ -15,7 +15,7 @@ dependencies {
     api("org.apache.flume:flume-ng-core:${flumeVersion}")
     api("org.apache.flume:flume-ng-sdk:${flumeVersion}")
 
-    implementation("org.apache.commons:commons-lang3:3.16.0")
+    implementation("org.apache.commons:commons-lang3:3.17.0")
     implementation("org.mongodb:mongodb-driver:3.12.14")
     implementation("org.slf4j:slf4j-api:2.0.16")
 
