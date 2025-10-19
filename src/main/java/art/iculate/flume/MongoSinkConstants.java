@@ -12,39 +12,29 @@ final class MongoSinkConstants {
   private MongoSinkConstants() {}
 
   /**
-   * Comma-separated list of hostname:port. If the port is not present the
-   * default port 27017 will be used.
+   * Comma-separated list of hostname:port. If the port is not present the default port 27017 will
+   * be used.
    */
   static final String HOSTNAMES = "hostNames";
 
-  /**
-   * Database name.
-   */
+  /** Database name. */
   static final String DATABASE = "database";
 
-  /**
-   * Collection name.
-   */
+  /** Collection name. */
   static final String COLLECTION = "collection";
 
-  /**
-   * User name.
-   */
+  /** User name. */
   static final String USER = "user";
 
-  /**
-   * Password.
-   */
+  /** Password. */
   static final String PASSWORD = "password";
 
   /**
-   * Maximum number of events the sink should take from the channel per
-   * transaction, if available. Defaults to 100.
+   * Maximum number of events the sink should take from the channel per transaction, if available.
+   * Defaults to 100.
    */
   static final String BATCH_SIZE = "batchSize";
 
-  /**
-   * The default batch size.
-   */
+  /** The default batch size. */
   static final int DEFAULT_BATCH_SIZE = 100;
 }

@@ -7,6 +7,14 @@
  */
 package art.iculate.flume;
 
+import static art.iculate.flume.MongoSinkConstants.BATCH_SIZE;
+import static art.iculate.flume.MongoSinkConstants.COLLECTION;
+import static art.iculate.flume.MongoSinkConstants.DATABASE;
+import static art.iculate.flume.MongoSinkConstants.DEFAULT_BATCH_SIZE;
+import static art.iculate.flume.MongoSinkConstants.HOSTNAMES;
+import static art.iculate.flume.MongoSinkConstants.PASSWORD;
+import static art.iculate.flume.MongoSinkConstants.USER;
+
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -14,6 +22,10 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.flume.Channel;
 import org.apache.flume.Context;
@@ -26,19 +38,6 @@ import org.apache.flume.sink.AbstractSink;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import static art.iculate.flume.MongoSinkConstants.BATCH_SIZE;
-import static art.iculate.flume.MongoSinkConstants.COLLECTION;
-import static art.iculate.flume.MongoSinkConstants.DATABASE;
-import static art.iculate.flume.MongoSinkConstants.DEFAULT_BATCH_SIZE;
-import static art.iculate.flume.MongoSinkConstants.HOSTNAMES;
-import static art.iculate.flume.MongoSinkConstants.PASSWORD;
-import static art.iculate.flume.MongoSinkConstants.USER;
 
 public class MongoSink extends AbstractSink implements Configurable {
 
@@ -104,8 +103,7 @@ public class MongoSink extends AbstractSink implements Configurable {
         logger.error("Exception during transaction rollback.", rollbackException);
       }
 
-      throw new EventDeliveryException(
-                "Failed to commit transaction. Transaction rolled back.", e);
+      throw new EventDeliveryException("Failed to commit transaction. Transaction rolled back.", e);
     } finally {
       transaction.close();
     }
@@ -118,12 +116,12 @@ public class MongoSink extends AbstractSink implements Configurable {
     logger.info("Starting MongoDB sink");
     sinkCounter.start();
     try {
-      client = MongoClients.create(
+      client =
+          MongoClients.create(
               MongoClientSettings.builder()
-                      .applyToClusterSettings(builder ->
-                              builder.hosts(mongoHosts))
-                      .credential(credential)
-                      .build());
+                  .applyToClusterSettings(builder -> builder.hosts(mongoHosts))
+                  .credential(credential)
+                  .build());
       MongoDatabase database = client.getDatabase(databaseName);
       collection = database.getCollection(collectionName);
       sinkCounter.incrementConnectionCreatedCount();
