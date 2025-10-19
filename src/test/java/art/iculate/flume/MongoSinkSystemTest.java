@@ -2,6 +2,7 @@ package art.iculate.flume;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import org.apache.flume.Channel;
@@ -12,28 +13,30 @@ import org.apache.flume.Transaction;
 import org.apache.flume.channel.MemoryChannel;
 import org.apache.flume.conf.Configurables;
 import org.apache.flume.event.SimpleEvent;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
+@Testcontainers
 public class MongoSinkSystemTest {
 
   private final String MONGO_COLLECTION = "json";
   private final String MONGO_DATABASE = "admin";
-  private final String MONGO_PASSWORD = "root";
-  private final String MONGO_USERNAME = "root";
+  private static final String MONGO_PASSWORD = "root";
+  private static final String MONGO_USERNAME = "root";
 
-  @Rule
-  public GenericContainer mongo =
-      new GenericContainer<>("mongo:4.2")
+  @Container
+  public static GenericContainer mongo =
+      new GenericContainer<>("mongo:8-noble")
           .withExposedPorts(27017)
           .withEnv("MONGO_INITDB_ROOT_USERNAME", MONGO_USERNAME)
           .withEnv("MONGO_INITDB_ROOT_PASSWORD", MONGO_PASSWORD);
 
   private MongoSink sink;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     sink = new MongoSink();
   }
@@ -65,20 +68,24 @@ public class MongoSinkSystemTest {
     assertThat(mongoJsonDocuments, hasItem(jsonDocument));
   }
 
-  @Test(expected = EventDeliveryException.class)
+  @Test
   public void nonJsonBodyThrowsEventDeliveryException() throws EventDeliveryException {
-    Channel channel = startSink(sink, createContext(mongo));
+    assertThrows(
+        EventDeliveryException.class,
+        () -> {
+          Channel channel = startSink(sink, createContext(mongo));
 
-    Transaction txn = channel.getTransaction();
-    txn.begin();
-    Event event = new SimpleEvent();
-    String body = "invalid-body";
-    event.setBody(body.getBytes());
-    channel.put(event);
-    txn.commit();
-    txn.close();
-    sink.process();
-    sink.stop();
+          Transaction txn = channel.getTransaction();
+          txn.begin();
+          Event event = new SimpleEvent();
+          String body = "invalid-body";
+          event.setBody(body.getBytes());
+          channel.put(event);
+          txn.commit();
+          txn.close();
+          sink.process();
+          sink.stop();
+        });
   }
 
   private Context createContext(GenericContainer mongoContainer) {

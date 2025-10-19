@@ -6,39 +6,24 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.mongodb.ServerAddress;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class MongoSinkTest {
 
-  @Parameters
-  public static Collection<Object[]> data() {
-    return Arrays.asList(
-        new Object[][] {
-          {"host1,host2", 27017, 27017},
-          {"host1:1234,host2:2345", 1234, 2345},
-          {"  host1:1234, host2:2345  ", 1234, 2345},
-        });
+  public static Stream<Arguments> data() {
+    return Stream.of(
+        Arguments.of("host1,host2", 27017, 27017),
+        Arguments.of("host1:1234,host2:2345", 1234, 2345),
+        Arguments.of("  host1:1234, host2:2345  ", 1234, 2345));
   }
 
-  @Parameter(0)
-  public String hostNames;
-
-  @Parameter(1)
-  public int firstPort;
-
-  @Parameter(2)
-  public int secondPort;
-
-  @Test
-  public void serverAddresses() {
+  @ParameterizedTest
+  @MethodSource("data")
+  public void serverAddresses(String hostNames, int firstPort, int secondPort) {
     List<ServerAddress> expected = new ArrayList<>();
     expected.add(new ServerAddress("host1", firstPort));
     expected.add(new ServerAddress("host2", secondPort));

@@ -19,9 +19,11 @@ dependencies {
     implementation("org.mongodb:mongodb-driver:3.12.14")
     implementation("org.slf4j:slf4j-api:2.0.17")
 
-    testImplementation("junit:junit:4.13.2")
     testImplementation("org.hamcrest:hamcrest:3.0")
-    testImplementation("org.testcontainers:testcontainers:2.0.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.testcontainers:junit-jupiter:1.21.3")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 group = "art.iculate.flume"
@@ -37,8 +39,12 @@ tasks.withType<JavaCompile> {
     options.setDeprecation(true)
 }
 
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+}
+
 jacoco {
-    toolVersion = "0.8.12"
+    toolVersion = "0.8.14"
 }
 
 tasks.jacocoTestReport {
