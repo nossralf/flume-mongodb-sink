@@ -31,7 +31,7 @@ version = "0.2"
 description = "flume-mongodb-sink"
 
 java {
-     sourceCompatibility = JavaVersion.VERSION_1_8
+     sourceCompatibility = JavaVersion.VERSION_17
 }
 
 tasks.withType<JavaCompile> {
