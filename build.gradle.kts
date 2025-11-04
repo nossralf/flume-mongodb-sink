@@ -20,8 +20,8 @@ dependencies {
     implementation("org.slf4j:slf4j-api:2.0.17")
 
     testImplementation("org.hamcrest:hamcrest:3.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:6.0.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:6.0.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:6.0.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:6.0.1")
     testImplementation("org.testcontainers:junit-jupiter:1.21.3")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
