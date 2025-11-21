@@ -1,7 +1,7 @@
 plugins {
     jacoco
     `java-library`
-    id("org.sonarqube") version "7.0.1.6134"
+    id("org.sonarqube") version "7.1.0.6387"
 }
 
 repositories {
