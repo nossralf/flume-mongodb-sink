@@ -22,7 +22,7 @@ dependencies {
     testImplementation("org.hamcrest:hamcrest:3.0")
     testImplementation("org.junit.jupiter:junit-jupiter-params:6.0.1")
     testImplementation("org.junit.jupiter:junit-jupiter:6.0.1")
-    testImplementation("org.testcontainers:junit-jupiter:1.21.3")
+    testImplementation("org.testcontainers:junit-jupiter:1.21.4")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
